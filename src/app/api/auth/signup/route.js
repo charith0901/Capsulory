@@ -6,15 +6,15 @@ import { NextResponse } from 'next/server';
 const handler = async (req) => {
   if (req.method === 'POST') {
     try {
-      const { username, password } = await req.json();
+      const { name,email, password } = await req.json();
 
       // Connect to MongoDB
       await connectDB();
 
       // Check if the username already exists
-      const existingUser = await User.findOne({ username });
+      const existingUser = await User.findOne({ email });
       if (existingUser) {
-        return NextResponse.json({ error: 'Username already taken' }, { status: 400 });
+        return NextResponse.json({ error: 'email already taken' }, { status: 400 });
       }
 
       // Hash the password
@@ -22,7 +22,8 @@ const handler = async (req) => {
 
       // Create a new user
       const newUser = new User({
-        username,
+        email,
+        name,
         password: hashedPassword,
       });
 

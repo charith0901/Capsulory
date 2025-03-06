@@ -1,15 +1,17 @@
 import connectDB from '../../../lib/mongodb';
 import Capsule from '../../../model/Capsule';
+import User from '../../../model/User';
 
 export async function GET(request) {
   await connectDB();
   try {
     const url = new URL(request.url);
-    const userId = url.searchParams.get('userId');
-    if (!userId) {
-      throw new Error('userId is required');
+    const email = url.searchParams.get('email');
+    if (!email) {
+      throw new Error('email is required');
     }
-    const capsules = await Capsule.find({ userId }).populate('userId');
+    const user = await User.findOne({ email });
+    const capsules = await Capsule.find({ ownerId: user }).populate('ownerId');
     return new Response(JSON.stringify(capsules), { status: 200 });
   } catch (error) {
     console.log(error);
@@ -23,18 +25,18 @@ export async function POST(request) {
     description,
     deliveryDate,
     visibility,
-    mediaAttachments,
     tags,
-    ownerId } = await request.json();
+    email } = await request.json();
+
+    const user = await User.findOne({ email });
 
   const newCapsule = new Capsule({
     title,
     description,
     deliveryDate,
     visibility,
-    mediaAttachments,
     tags,
-    ownerId
+    ownerId: user._id
   });
 
   try {
@@ -42,5 +44,25 @@ export async function POST(request) {
     return new Response('Capsule created successfully', { status: 201 });
   } catch (error) {
     return new Response('Error creating capsule'+error, { status: 400 });
+  }
+}
+
+export async function DELETE(request) {
+  await connectDB();
+  try {
+    const url = new URL(request.url);
+    const capsuleId = url.searchParams.get('id');
+    if (!capsuleId) {
+      throw new Error('Capsule ID is required');
+    }
+    console.log(capsuleId);
+    const deletedCapsule = await Capsule.findByIdAndDelete(capsuleId);
+    if (!deletedCapsule) {
+      return new Response('Capsule not found', { status: 404 });
+    }
+    return new Response('Capsule deleted successfully', { status: 200 });
+  } catch (error) {
+    console.log(error);
+    return new Response('Error deleting capsule', { status: 500 });
   }
 }

@@ -1,4 +1,3 @@
-"use client"; // Make sure this is a client component
 
 import { useSession } from "next-auth/react";
 

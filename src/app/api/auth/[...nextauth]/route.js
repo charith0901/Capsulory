@@ -1,15 +1,21 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import User from "../../../../model/User"; 
 import connectDB from "../../../../lib/mongodb";
 import bcrypt from 'bcryptjs';
 
 const options = {
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    })
+    ,
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        username: { label: "Username", type: "text" },
+        email: { label: "email", type: "text" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
@@ -19,13 +25,13 @@ const options = {
 
           // Find user by username
           const user = await User.findOne({
-            username: credentials.username,
+            email: credentials.email,
           });
 
           // Check if password matches using bcrypt
           if (user && await bcrypt.compare(credentials.password, user.password)) {
             // Return user object for successful login
-            return { id: user._id, name: user.username };
+            return { id: user._id, name: user.name, email: user.email };
           }
           
           return null; // Return null if credentials don't match
@@ -47,6 +53,7 @@ const options = {
       // Add user information to the JWT token if it exists
       if (user) {
         token.id = user.id;
+        token.email = user.email;
         token.name = user.name;
       }
       return token;
@@ -55,8 +62,28 @@ const options = {
       // Add token data to the session object
       session.user.id = token.id;
       session.user.name = token.name;
+      session.user.email = token.email
       return session;
     },
+    async redirect({ url, baseUrl }) {
+      return url.startsWith(baseUrl) ? url : baseUrl;
+    },
+    async signIn({ user }) {
+      await connectDB();
+
+      const existingUser = await User.findOne({ email: user.email });
+
+      if (!existingUser) {
+        const newUser = new User({
+          name: user.name,
+          email: user.email,
+          image: user.image,
+        });
+        await newUser.save();
+      }
+
+      return true;
+    }
   },
   secret: process.env.NEXTAUTH_SECRET, // Optional: Set a secret to encrypt JWT tokens
 };

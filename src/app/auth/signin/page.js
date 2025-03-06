@@ -8,7 +8,7 @@ import { LogIn, User, Lock, AlertCircle } from "lucide-react";
 import Link from "next/link";
 
 export default function SignIn() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -21,21 +21,23 @@ export default function SignIn() {
 
     try {
       const result = await signIn("credentials", {
-        redirect: false,
-        username,
+        redirect: true,
+        email,
         password,
       });
+      
 
       if (result?.error) {
         setError("Invalid credentials");
       } else {
-        router.push("/"); // Redirect to home or a protected page
-      }
+        setIsLoading(false);
+             }
     } catch (err) {
-      setError("An unexpected error occurred");
-    } finally {
       setIsLoading(false);
+      setError("An unexpected error occurred");
     }
+      
+    
   };
 
   return (
@@ -83,23 +85,23 @@ export default function SignIn() {
 
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-                Username
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                Email
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <User className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
-                  id="username"
-                  name="username"
+                  id="email"
+                  name="email"
                   type="text"
-                  autoComplete="username"
+                  autoComplete="email"
                   required
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="focus:ring-indigo-500 text-gray-900 focus:border-indigo-500 block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md"
-                  placeholder="Your username"
+                  placeholder="Your email"
                 />
               </div>
             </div>
@@ -181,15 +183,15 @@ export default function SignIn() {
 
             <div className="mt-6 grid grid-cols-3 gap-3">
               <div>
-                <a
-                  href="#"
+                <button
+                  onClick={() => signIn("google", { callbackUrl: "http://localhost:3000" })}
                   className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                 >
                   <span className="sr-only">Sign in with Google</span>
                   <svg className="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z" />
                   </svg>
-                </a>
+                </button>
               </div>
 
               <div>
