@@ -2,34 +2,57 @@ pipeline {
     agent any
 
     environment {
-        SSH_USER = "ubuntu"
-        SSH_HOST = "51.21.195.6"
-        APP_DIR = "/home/ubuntu/capsulory"
+        SSH_USER = 'ubuntu'
+        SSH_HOST = '51.21.165.6'
+        DEPLOY_DIR = '/var/www/capsulory'
     }
 
     stages {
-        stage('Clone Repository') {
+        stage('Clone Repo') {
             steps {
-                sh 'ssh -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOST} "git clone -b main https://github.com/charith0901/Capsulory.git ${APP_DIR} || (cd ${APP_DIR} && git pull)"'
+                git branch: 'main', url: 'git@github.com:charith0901/capsulory.git'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                sh 'ssh ${SSH_USER}@${SSH_HOST} "cd ${APP_DIR} && npm install"'
+                sh 'npm install'
             }
         }
 
-        stage('Build Project') {
+        stage('Build Next.js') {
             steps {
-                sh 'ssh ${SSH_USER}@${SSH_HOST} "cd ${APP_DIR} && npm run build"'
+                sh 'npm run build'
             }
         }
 
-        stage('Restart Server') {
+        stage('Deploy to EC2') {
             steps {
-                sh 'ssh ${SSH_USER}@${SSH_HOST} "pm2 restart all || pm2 start npm --name capsulory -- start"'
+                sshagent(['60246f1e-a57b-4020-ac74-cf636c4db7da']) {
+                    sh """
+                    ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST << 'EOF'
+                    mkdir -p $DEPLOY_DIR
+                    cd $DEPLOY_DIR
+                    if [ ! -d ".git" ]; then
+                        git clone git@github.com:charith0901/capsulory.git .
+                    else
+                        git pull origin main
+                    fi
+                    npm install --production
+                    pm2 restart capsulory || pm2 start npm --name capsulory -- start
+                    EOF
+                    """
+                }
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Deployment successful!'
+        }
+        failure {
+            echo 'Deployment failed!'
         }
     }
 }
