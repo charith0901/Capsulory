@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Clone Repo') {
             steps {
-                git branch: 'main', url: 'git@github.com:charith0901/capsulory.git'
+                git branch: 'main', url: 'https://github.com/charith0901/Capsulory.git'
             }
         }
 
