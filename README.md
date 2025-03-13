@@ -2,6 +2,11 @@
 
 Capsulory is a modern time capsule web application that allows users to store and retrieve memories, messages, and digital artifacts securely over time. Built using **Next.js** for the frontend and **MongoDB** for storage, it offers a seamless and interactive user experience.
 
+
+## Live Demo
+
+Check out the live demo: [Capsulory](https://capsulory.vercel.app/)
+
 ## Features
 
 - **User Authentication**: Secure login and registration with Credentials and Google Oauth.
