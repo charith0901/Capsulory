@@ -16,10 +16,10 @@ Check out the live demo: [Capsulory](https://capsulory.vercel.app/)
 
 ## Tech Stack
 
-- **Frontend**: Next.js, React
-- **Backend**: Node.js, Express.js
+- **Frontend**: Next.js
+- **Backend**: Next.js
 - **Database**: MongoDB
-- **Authentication**: JWT-based authentication
+- **Authentication**: Next-auth , JWT-based authentication
 
 ## Installation
 
