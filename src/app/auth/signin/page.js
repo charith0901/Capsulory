@@ -2,17 +2,17 @@
 
 import { signIn } from "next-auth/react";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { LogIn, User, Lock, AlertCircle } from "lucide-react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
+  const searchpr=useSearchParams();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,10 +20,11 @@ export default function SignIn() {
     setError("");
 
     try {
+      const callbackUrl = searchpr.get("callbackUrl");
       const result = await signIn("credentials", {
-        redirect: true,
         email,
         password,
+        callbackUrl: callbackUrl || "/",
       });
       
 
@@ -34,7 +35,7 @@ export default function SignIn() {
              }
     } catch (err) {
       setIsLoading(false);
-      setError("An unexpected error occurred");
+      setError("An unexpected error occurred"+err.message);
     }
       
     
