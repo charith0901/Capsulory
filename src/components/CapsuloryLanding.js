@@ -95,7 +95,7 @@ export default function CapsuloryLanding() {
                 <Lock size={28} />
               </div>
               <h3 className="text-xl font-semibold mb-2">Secure</h3>
-              <p className="text-gray-300">Bank-level encryption keeps your memories safe until you're ready to revisit them.</p>
+              <p className="text-gray-300">Bank-level encryption keeps your memories safe until you&apos;re ready to revisit them.</p>
             </div>
           </div>
           

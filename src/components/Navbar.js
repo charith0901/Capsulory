@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { LogIn, LogOut, Menu, X, Home, Timer, BookOpen, Plus, Archive, User } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 export default function Navbar() {
   const { data: session } = useSession();
@@ -218,7 +219,7 @@ export default function Navbar() {
                 <div className="mt-6 pt-3 border-t border-indigo-700">
                   <div className="flex items-center px-3 mb-3">
                     {session.user.image ? (
-                      <img 
+                      <Image 
                         src={session.user.image} 
                         alt="Profile" 
                         className="w-8 h-8 rounded-full mr-2 border border-white/30"
