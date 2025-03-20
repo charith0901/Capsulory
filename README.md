@@ -11,48 +11,91 @@ Check out the live demo: [Capsulory](https://capsulory.vercel.app/)
 
 src
     ├── app
+    
         ├── api
+        
         │   ├── Capsules
+        
         │   │   └── route.js
+        
         │   └── auth
+        
         │   │   ├── [...nextauth]
+        
         │   │       └── route.js
+        
         │   │   └── signup
+        
         │   │       └── route.js
+        
         ├── auth
+        
         │   ├── signin
+        
         │   │   └── page.js
+        
         │   └── signup
+        
         │   │   └── page.js
+        
         ├── capsules
+        
         │   ├── [id]
+        
         │   │   └── page.js
+        
         │   └── page.js
+        
         ├── favicon.ico
+        
         ├── globals.css
+        
         ├── layout.js
+        
         ├── page.js
+        
         ├── pages
+        
         │   ├── createCapsule
+        
         │   │   └── page.js
+        
         │   └── myCapsules
+        
         │   │   └── page.js
+        
         ├── recoil
+        
         │   └── capsuleAtom.js
+        
         └── services
+        
         │   └── capsuleApi.js
+        
     ├── components
+    
         ├── CapsuleCard.js
+        
         ├── CapsuloryLanding.js
+        
         ├── CreateCapsule.js
+        
         ├── Navbar.js
+        
         ├── ProtectedRoute.js
+        
         └── ui
+        
         │   └── button.js
+        
     ├── lib
+    
         └── mongodb.js
+        
     └── model
+    
         ├── Capsule.js
+        
         └── User.js
 
 ## Features
