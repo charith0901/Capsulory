@@ -5,9 +5,10 @@ import { LogIn, LogOut, Menu, X, Home, Timer, BookOpen, Plus, Archive, User } fr
 import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
+import Navbarloading from './ui/loadings/Navbarloading';
 
 export default function Navbar() {
-  const { data: session } = useSession();
+  const { data: session,status } = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const router = useRouter();
@@ -86,7 +87,7 @@ export default function Navbar() {
                 </div>
               </Link>
               
-              {session ? (
+              {status=='loading' ? <Navbarloading/> : session ? (
                 <motion.div 
                   className="flex items-center space-x-4"
                   initial={{ opacity: 0 }}

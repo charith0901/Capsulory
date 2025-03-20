@@ -79,17 +79,24 @@ const Capsules = () => {
           <p className="text-gray-600 mt-2">Memories preserved for the future</p>
         </header>
         
-        {isLoading ? (
-          <div className="flex justify-center items-center h-64">
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-            >
-              <Loader className="text-indigo-600 w-10 h-10" />
-            </motion.div>
-            <p className="ml-4 text-indigo-600 font-medium">Loading your capsules...</p>
-          </div>
-        ) : capsules.length > 0 ? (
+         {isLoading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3].map((index) => (
+                <div
+                  key={index}
+                  className="flex flex-col bg-neutral-300 w-full h-64 animate-pulse rounded-xl p-4 gap-4"
+                >
+                  <div className="bg-neutral-400/50 w-full h-32 animate-pulse rounded-md"></div>
+                  <div className="flex flex-col gap-2">
+                    <div className="bg-neutral-400/50 w-full h-4 animate-pulse rounded-md"></div>
+                    <div className="bg-neutral-400/50 w-4/5 h-4 animate-pulse rounded-md"></div>
+                    <div className="bg-neutral-400/50 w-full h-4 animate-pulse rounded-md"></div>
+                    <div className="bg-neutral-400/50 w-2/4 h-4 animate-pulse rounded-md"></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : capsules.length > 0 ? (
           <motion.div 
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
             variants={container}
