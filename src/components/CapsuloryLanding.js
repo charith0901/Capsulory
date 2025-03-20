@@ -51,7 +51,7 @@ export default function CapsuloryLanding() {
           <div className="absolute w-96 h-96 rounded-full bg-pink-600/10 blur-3xl -bottom-40 -right-20 animate-pulse delay-700"></div>
         </div>
         
-        <div className="relative z-10">
+        <div className="relative z-10 py-20">
           <div className="flex flex-col items-center">
             <div className="animate-fade-in">
               <h1 className="text-5xl md:text-7xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400 text-center">
@@ -62,11 +62,11 @@ export default function CapsuloryLanding() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
                 <Link href="/pages/myCapsules">
-                <button className="px-8 py-6 text-lg rounded-2xl bg-purple-600 hover:bg-purple-700 flex items-center gap-2 shadow-lg shadow-purple-600/30 transform hover:scale-105 transition-all">
+                <button className="w-full sm:w-auto px-8 py-6 text-lg rounded-2xl bg-purple-600 hover:bg-purple-700 flex items-center gap-2 shadow-lg shadow-purple-600/30 transform hover:scale-105 transition-all">
                   Get Started <ArrowRight size={20} />
                 </button>
                 </Link>
-                <button className="px-8 py-6 text-lg rounded-2xl border border-purple-400 text-purple-400 hover:bg-purple-900/20 transform hover:scale-105 transition-all">
+                <button className="px-8 py-6 text-lg rounded-2xl border border-purple-400  text-purple-400 hover:bg-purple-900/20 transform hover:scale-105 transition-all">
                   Learn More
                 </button>
               </div>
