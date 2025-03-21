@@ -158,7 +158,7 @@ export default function CreateCapsule() {
                     type="datetime-local"
                     id="delivery-date"
                     value={deliveryDate}
-                    onChange={(e) => setUnlockDate(e.target.value)}
+                    onChange={(e) => setUnlockDate(new Date(e.target.value))}
                     required
                     className="focus:ring-indigo-500 text-gray-900 focus:border-indigo-500 block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md"
                   />
