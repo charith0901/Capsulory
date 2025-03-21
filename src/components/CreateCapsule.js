@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 export default function CreateCapsule() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [deliveryDate, setUnlockDate] = useState('');
+  const [deliveryDate, setUnlockDate] = useState(new Date());
   const [isPublic, setIsPublic] = useState(false);
   const [tags, setTags] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,7 +27,7 @@ export default function CreateCapsule() {
         body: JSON.stringify({
           title,
           description,
-          deliveryDate,
+          deliveryDate: deliveryDate.toISOString(),
           visibility: isPublic ? 'public' : 'private',
           tags,
           email: session.user.email,
