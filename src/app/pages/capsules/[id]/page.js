@@ -59,7 +59,7 @@ export default function CapsuleDetails({ params }) {
                         </svg>
                     </div>
                     <h2 className="text-2xl font-bold mb-2 text-gray-800">Capsule Not Found</h2>
-                    <p className="text-gray-600 mb-6">The requested capsule could not be loaded or doesn't exist.</p>
+                    <p className="text-gray-600 mb-6">The requested capsule could not be loaded or doesn&apos;t exist.</p>
                     <Link href="/pages/capsules" className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                         <ArrowLeft className="w-4 h-4 mr-2" />
                         Back to Capsules
