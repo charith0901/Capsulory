@@ -12,7 +12,14 @@ export async function GET(request) {
     }
     const user = await User.findOne({ email });
     const capsules = await Capsule.find({ ownerId: user }).populate('ownerId');
-    return new Response(JSON.stringify(capsules), { status: 200 });
+    return new Response(JSON.stringify(capsules.map(capsule => ({
+      _id: capsule._id,
+      createdAt: capsule.createdAt,
+      title: capsule.title,
+      deliveryDate: capsule.deliveryDate,
+      visibility: capsule.visibility,
+      tags: capsule.tags,
+    }))), { status: 200 });
   } catch (error) {
     console.log(error);
     return new Response('Error fetching capsules', { status: 500 });

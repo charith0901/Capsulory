@@ -94,8 +94,8 @@ export default function Navbar() {
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <Link href="/pages/myCapsules" className={`text-gray-200 hover:text-white transition-colors duration-200 px-3 py-1 rounded-lg ${
-                    isActive('/pages/myCapsules') ? 'bg-white/20' : ''
+                  <Link href="/pages/capsules" className={`text-gray-200 hover:text-white transition-colors duration-200 px-3 py-1 rounded-lg ${
+                    isActive('/pages/capsules') ? 'bg-white/20' : ''
                   }`}>
                     <div className="flex items-center space-x-1">
                       <Archive size={18} />
@@ -196,8 +196,8 @@ export default function Navbar() {
               
               {session && (
                 <>
-                  <Link href="/pages/myCapsules" className={`block px-3 py-2 rounded-md hover:bg-indigo-700 transition-colors duration-200 ${
-                    isActive('/pages/myCapsules') ? 'bg-indigo-700 text-white' : 'text-gray-200'
+                  <Link href="/pages/capsules" className={`block px-3 py-2 rounded-md hover:bg-indigo-700 transition-colors duration-200 ${
+                    isActive('/pages/capsules') ? 'bg-indigo-700 text-white' : 'text-gray-200'
                   }`}>
                     <div className="flex items-center space-x-2">
                       <Archive size={18} />

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Clock, Calendar, TimerIcon } from 'lucide-react';
+import Link from 'next/link';
 
 
 const CapsuleCard = ({ capsule, onDelete }) => {
@@ -49,27 +50,23 @@ const CapsuleCard = ({ capsule, onDelete }) => {
           <Clock className="text-indigo-600 w-5 h-5" />
           <p className="text-sm font-medium text-gray-700">Can be Opened After: {new Date(capsule.deliveryDate).toLocaleString()}</p>
         </motion.div>
-        
-        {capsule.description && (
-          <motion.p 
-            className="mt-3 text-gray-600 border-t border-indigo-200 pt-3"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            {capsule.description}
-          </motion.p>
-        )}
       </div>
 
-      {<motion.button
-        className="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-medium flex items-center justify-center disabled:opacity-50"
+      {
+        <Link
+        disabled={new Date(capsule.deliveryDate) >= new Date()}
+        className='disabled:opacity-50 disabled:cursor-not-allowed'
+        href={`capsules/${capsule._id}`}
+        >
+        <motion.button
+        className="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-medium flex items-center justify-center "
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
-        disabled={new Date(capsule.deliveryDate) >= new Date()}
       >
         Open Capsule
-      </motion.button>}
+      </motion.button>
+      </Link>
+      }
       <motion.button
         className="mt-2 w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg font-medium flex items-center justify-center"
         whileHover={{ scale: 1.02 }}
