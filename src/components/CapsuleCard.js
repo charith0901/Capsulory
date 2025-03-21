@@ -54,16 +54,16 @@ const CapsuleCard = ({ capsule, onDelete }) => {
 
       {
         <Link
-        disabled={new Date(capsule.deliveryDate) >= new Date()}
         className='disabled:opacity-50 disabled:cursor-not-allowed'
         href={`capsules/${capsule._id}`}
         >
         <motion.button
-        className="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-medium flex items-center justify-center "
+        disabled={new Date(capsule.deliveryDate) >= new Date()}
+        className="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-medium flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
       >
-        Open Capsule
+        Open Capsule {new Date(capsule.deliveryDate) >= new Date() ? ' (Not Yet Available)' : ''}
       </motion.button>
       </Link>
       }
