@@ -176,7 +176,8 @@ export default function CapsuloryLanding() {
       
       {/* Footer */}
       <footer className="py-8 px-4 md:px-8 bg-black/50 text-center">
-        <p className="text-gray-400">© {new Date().getFullYear()} Capsulory. All rights reserved.</p>
+      <p className="text-gray-400">Developed By <a href='https://datadragons.live/member/charith_dev' target='_blank' rel='noreferrer'>Charith Jayasankha</a></p> 
+       <p className="text-gray-400">© {new Date().getFullYear()} Capsulory. All rights reserved.</p> 
       </footer>
     </div>
   );
