@@ -20,7 +20,7 @@ export default function CreateCapsule() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+    console.log(title, description, deliveryDate, isPublic, tags);
     try {
       const response = await fetch('/api/Capsules', {
         method: 'POST',
