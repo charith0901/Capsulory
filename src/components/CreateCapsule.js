@@ -42,7 +42,7 @@ export default function CreateCapsule() {
       if (data.ok) {
         // Show success animation
         setTimeout(() => {
-          router.push('/pages/myCapsules');
+          router.push('/pages/capsules');
         }, 1500);
       }
     } catch (error) {
